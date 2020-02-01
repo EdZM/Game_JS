@@ -44,8 +44,8 @@
 
 
             function renderScreen() {
-                //context.fillStyle = 'white';
-                //context.fillRect(0, 0, 10, 10);
+                context.fillStyle = 'white';
+                context.fillRect(0, 0, 10, 10);
 
                 for(playerId in game.players){
                     const player = game.players[playerId];
@@ -63,7 +63,7 @@
 
             }
 
-
+            requestAnimatedFrame(renderScreen);
 
            
         
