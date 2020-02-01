@@ -4,3 +4,4 @@ ports:
 tasks:
   - init: cd first_release/
     command: npx serve
+  - openMode: split-left
