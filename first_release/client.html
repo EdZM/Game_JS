@@ -27,7 +27,7 @@
             const currentPlayerId = 'player1';
 
 
-            const game = { // não esqueça que game é um objeto
+            const state = { // não esqueça que game é um objeto
                 players: {
                     'player1':{ x: 1, y: 1 },
                     'player2':{ x: 9, y: 9 },
@@ -39,26 +39,45 @@
                 },
             }
 
+            // Exemplo de implementação usando o design pattern Factory
+            function createGame(){
+                function movePlayer(command){ // command é um objeto
+                    console.log(`Moving ${command.playerId} with ${command.keyPressed}`); // para usar JS dentro de strings use `` (Template Strings)
+
+                }
+                return {
+                    movePlayer // retorna uma instancia 
+                }
+
+
+            }
+
+
+
+
 
             document.addEventListener('keydown', handleKeydown);
 
             function handleKeydown(event) {
                 console.log(event.key);
             
-                const keyPressed = event.key;
+                const keyPressed = event.key; // De quem é esse código? R: aparentemente essa linha é uma das responsabilidades da camada de input.
+                
+                // OBS.: ao fazer dessa forma estou misturando responsabilidades(NÃO FAÇA ISSO) das camadas
+                /* NÃO FAZER DESSA FORMA 
+                
                 const player = game.players[currentPlayerId];
 
-
-                // OBS.: ao fazer dessa forma estou misturando responsabilidades(NÃO FAÇA ISSO)
                 // Abaixo, a camada de input está misturada com a de jogo, que é quem contem as regras de negócio dele.
+                // E aí nessas linhas fica muito difícil responder a pergunta: De quem é esse código? 
                 if(keyPressed === 'ArrowUp' && player.y - 1 >= 0){ // ao definir condições para que o jogador nao saia dos limites da tela estou criando uma regra de negócio para o jogo
                     player.y = player.y - 1;
                     return;
 
                 }
                 
-                if(keyPressed === 'ArrowRight' && player.x + 1 < screen.width){
-                    player.x = player.x + 1;
+                if(keyPressed === 'ArrowRight' && player.x + 1 < screen.width){ // responsabilidades da camada de input e da camada do jogo, respectivamente
+                    player.x = player.x + 1; // responsabilidade da camada do jogo.
                     return;
 
                 }
@@ -75,7 +94,7 @@
 
                 }
 
-            
+                */
             
             
             
