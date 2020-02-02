@@ -17,7 +17,11 @@
             - transforma a pasta que em estou num servidor estático
             - para usá-lo: npx serve
 
-    - Design Pattern usado: Observer
+    - Design Pattern usado: - Observer: define uma dependência um-para-muitos entre objetos de modo que 
+                              quando um objeto muda o estado, todos seus dependentes são notificados e atualizados automaticamente.
+                            
+                            - Factory: nele tenho uma função que quando executada retorna um objeto/instancia pronto para ser manipulado/usado.
+                                       Será usado para isolar a camada do jogo.
 
     - Primeira regra de negócio(do jogo): estabelecer regras para que o jogador não saia dos limites do canvas
 
