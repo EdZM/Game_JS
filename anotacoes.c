@@ -17,16 +17,21 @@
             - transforma a pasta que em estou num servidor estático
             - para usá-lo: npx serve
 
-    - Design Pattern usado:
+    - Design Pattern usado: Observer
 
-    - Primeira regra de negócio do jogo: estabelecer regras para que o jogador não saia dos limites do canvas
+    - Primeira regra de negócio(do jogo): estabelecer regras para que o jogador não saia dos limites do canvas
 
     - é necessário estar atento para que uma camada não tenha responsabilidades de outras ==> Isso dificulta uma eventual manutenção, já que se eu tiver um erro na camada de 
         apresentação, ele poderá, por exemplo, estar relacionado com o funcionamento de outra camada que não tem nada a ver com essa.
         Isso também dificulta eventuais testes, envio de informações para o backend, ...
         Portanto, sempre pense em modelagem, arquitetura de software na hora de codar um projeto, para que ele não fique um código ameba.
 
-    - na implementação do jogo há o conceito de acoplamento.    
+    - na implementação do jogo há o conceito de acoplamento. E 3 estágios são visíveis aqui: (detalhe: nenhum é melhor que o outro)
+        - Estágio 1: nele, há vários códigos de vários componentes misturados ao mesmo tempo. Usa-se esse estágio para apenas implementar um protótipo. 
+                     Ele também é mais rapidamente implementado, e dá um panorama mais geral sobre a ideia do projeto, me permitindo perceber até coisas que eu não sei sobre ele.
+                            
+        - Estágio 2: aqui, apesar de os componentes estarem isolados, um conhece/chama estaticamente o outro. Esse é o que será usado no jogo    
+        - Estágio 3: aqui, os componentes não se conhecem, porque não existe a declaração/chamada dentro dele
 
 
     - a cada linha escrita sempre questione: "de quem é esse código?" .Isso tem o intuito de me fazer perceber as divisórias do meu sistema ou os limites dos componentes e se um está acoplado ao outro ou quando isso acontece
