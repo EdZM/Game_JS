@@ -30,7 +30,7 @@
         Isso também dificulta eventuais testes, envio de informações para o backend, ...
         Portanto, sempre pense em modelagem, arquitetura de software na hora de codar um projeto, para que ele não fique um código ameba.
 
-    - na implementação do jogo há o conceito de acoplamento. E 3 estágios são visíveis aqui: (detalhe: nenhum é melhor que o outro)
+    - na implementação do jogo há o conceito de desacoplamento. E 3 estágios são visíveis aqui: (detalhe: nenhum é melhor que o outro)
         - Estágio 1: nele, há vários códigos de vários componentes misturados ao mesmo tempo. Usa-se esse estágio para apenas implementar um protótipo. 
                      Ele também é mais rapidamente implementado, e dá um panorama mais geral sobre a ideia do projeto, me permitindo perceber até coisas que eu não sei sobre ele.
                             
