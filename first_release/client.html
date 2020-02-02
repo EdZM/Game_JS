@@ -26,33 +26,58 @@
             const context = screen.getContext('2d');
             const currentPlayerId = 'player1';
 
-
-            const state = { // não esqueça que game é um objeto
-                players: {
-                    'player1':{ x: 1, y: 1 },
-                    'player2':{ x: 9, y: 9 },
-                },
-                
-                fruits:{
-                    'fruit1':{ x: 3, y: 1 },
-                
-                },
-            }
-
             // Exemplo de implementação usando o design pattern Factory
             function createGame(){
+                const state = { // não esqueça que state é um objeto
+                    players: {
+                        'player1':{ x: 1, y: 1 },
+                        'player2':{ x: 9, y: 9 },
+                    },
+                
+                    fruits:{
+                        'fruit1':{ x: 3, y: 1 },
+                    
+                    },
+                }
+                
+                
+                
                 function movePlayer(command){ // command é um objeto
                     console.log(`Moving ${command.playerId} with ${command.keyPressed}`); // para usar JS dentro de strings use `` (Template Strings)
+                    
+                    const player = state.players[command.playerId];
+                    const keyPressed = command.keyPressed;
 
+                    if( keyPressed === 'ArrowUp' && player.y - 1 >= 0){
+                        player.y = player.y - 1;
+                        return;
+                    }
+
+                    if(keyPressed === 'ArrowRight' && player.x + 1 < screen.width){ 
+                    player.x = player.x + 1; 
+                    return;
+                    }
+                    
+                    if(keyPressed === 'ArrowDown' && player.y + 1 < screen.height){
+                        player.y = player.y + 1;
+                        return;
+                    }
+                    
+                    if(keyPressed === 'ArrowLeft' && player.x - 1 >= 0){
+                        player.x = player.x - 1;
+                        return;
+                    }
+
+                    
                 }
+                
                 return {
-                    movePlayer // retorna uma instancia 
+                    movePlayer, // retorna uma instancia 
+                    state // retorna o objeto state, agora alterado pela função movePlayer
                 }
-
-
             }
 
-
+            const game = createGame();
 
 
 
@@ -60,10 +85,9 @@
 
             function handleKeydown(event) {
                 console.log(event.key);
-            
                 const keyPressed = event.key; // De quem é esse código? R: aparentemente essa linha é uma das responsabilidades da camada de input.
                 
-                // OBS.: ao fazer dessa forma estou misturando responsabilidades(NÃO FAÇA ISSO) das camadas
+                // OBS.: ao fazer da forma abaixo estou misturando responsabilidades(NÃO FAÇA ISSO) das camadas
                 /* NÃO FAZER DESSA FORMA 
                 
                 const player = game.players[currentPlayerId];
@@ -73,54 +97,52 @@
                 if(keyPressed === 'ArrowUp' && player.y - 1 >= 0){ // ao definir condições para que o jogador nao saia dos limites da tela estou criando uma regra de negócio para o jogo
                     player.y = player.y - 1;
                     return;
-
                 }
                 
                 if(keyPressed === 'ArrowRight' && player.x + 1 < screen.width){ // responsabilidades da camada de input e da camada do jogo, respectivamente
                     player.x = player.x + 1; // responsabilidade da camada do jogo.
                     return;
-
                 }
                 
                 if(keyPressed === 'ArrowDown' && player.y + 1 < screen.height){
                     player.y = player.y + 1;
                     return;
-
                 }
                 
                 if(keyPressed === 'ArrowLeft' && player.x - 1 >= 0){
                     player.x = player.x - 1;
                     return;
-
                 }
 
                 */
-            
-            
-            
-            
-            
+                
+                // A forma abaixo está mais organizada
+
+                const command = {
+                    playerId: 'player1',
+                    keyPressed
+                }
+
+                game.movePlayer(command); // de quem é esse código? R: camada do jogo
+
             }
 
-
-
             renderScreen();
-
 
             function renderScreen() {
                 context.fillStyle = 'white';
                 context.clearRect(0, 0, 10, 10);
 
-                for(playerId in game.players){
-                    const player = game.players[playerId];
+                for(playerId in game.state.players){
+                    const player = game.state.players[playerId];
                     context.fillStyle = 'black';
                     context.fillRect(player.x, player.y, 1, 1);
 
 
                 }
 
-                for(fruitId in game.fruits){
-                    const fruit = game.fruits[fruitId];
+                for(fruitId in game.state.fruits){
+                    const fruit = game.state.fruits[fruitId];
                     context.fillStyle = 'green';
                     context.fillRect(fruit.x, fruit.y, 1, 1);
                 }
