@@ -17,9 +17,18 @@
             - transforma a pasta que em estou num servidor estático
             - para usá-lo: npx serve
 
-    - Design Pattern usado: - Observer: define uma dependência um-para-muitos entre objetos de modo que 
-                              quando um objeto muda o estado, todos seus dependentes são notificados e atualizados automaticamente.
-                            
+    - Design Patterns usados: - Observer: 
+                                -> define uma dependência um-para-muitos entre objetos de modo que 
+                                   quando um objeto(subject) muda o estado, todos seus dependentes(observer) são notificados e 
+                                   atualizados automaticamente. Basicamente, quando o subject acha necessário ele envia as informações
+                                   para os observers que estiverem "interessados" em manipulá-las.
+                                
+                                -> O design pattern observer pode não ser muito aconselhável quando houver apenas 1 observer
+                                
+                                -> Acrescentar mais observers basicamente não causa impacto no código existente
+
+
+
                             - Factory: nele tenho uma função que quando executada retorna um objeto/instancia pronto para ser manipulado/usado.
                                        Será usado para isolar a camada do jogo.
 
@@ -41,6 +50,8 @@
     - a cada linha escrita sempre questione: "de quem é esse código?" .Isso tem o intuito de me fazer perceber as divisórias do meu sistema ou os limites dos componentes e se um está acoplado ao outro ou quando isso acontece
         - Se a resposta a essa pergunta for sempre que o código/linha pertence sempre a uma mesma camada, estou gerando um código ameba
         - Caso eu não saiba a resposta a essa pergunta, então não tenho total compreensão da modelagem do meu código.
+
+    
 
 
 */
