@@ -40,8 +40,6 @@
                     },
                 }
                 
-                
-                
                 function movePlayer(command){ // command é um objeto
                     console.log(`Moving ${command.playerId} with ${command.keyPressed}`); // para usar JS dentro de strings use `` (Template Strings)
                     
@@ -78,54 +76,98 @@
             }
 
             const game = createGame();
+            
+            // Estagio 3 de desacoplamento (linhas abaixo) usando o design pattern observer
+            const keyboardListener = createKeyboardListener();
+            keyboardListener.subscribe(game.movePlayer); // registra um observer que tem a função de mover o player
+
+            // Caso se queira que o server side escute os mesmos eventos do client side pode-se, por exemplo (o código abaixo é só uma simulação):
+            // const network = createNetwork(); componente/camada de network
+            // keyboardListener.subscribe(network.update); // Estou imaginando que a função update é a que está exposta para escutar os mesmos comandos do jogo da mesma forma que movePlayer
 
 
+            // funcao implementada seguindo o design pattern Factory(retorna uma variavel, objeto, função,)
+            function createKeyboardListener() { // Essa função está ligada a camada de input, mas não na de jogo
+                const state = {
+                    observers: [],
 
-            document.addEventListener('keydown', handleKeydown);
-
-            function handleKeydown(event) {
-                console.log(event.key);
-                const keyPressed = event.key; // De quem é esse código? R: aparentemente essa linha é uma das responsabilidades da camada de input.
-                
-                // OBS.: ao fazer da forma abaixo estou misturando responsabilidades(NÃO FAÇA ISSO) das camadas
-                /* NÃO FAZER DESSA FORMA 
-                
-                const player = game.players[currentPlayerId];
-
-                // Abaixo, a camada de input está misturada com a de jogo, que é quem contem as regras de negócio dele.
-                // E aí nessas linhas fica muito difícil responder a pergunta: De quem é esse código? 
-                if(keyPressed === 'ArrowUp' && player.y - 1 >= 0){ // ao definir condições para que o jogador nao saia dos limites da tela estou criando uma regra de negócio para o jogo
-                    player.y = player.y - 1;
-                    return;
                 }
                 
-                if(keyPressed === 'ArrowRight' && player.x + 1 < screen.width){ // responsabilidades da camada de input e da camada do jogo, respectivamente
-                    player.x = player.x + 1; // responsabilidade da camada do jogo.
-                    return;
-                }
-                
-                if(keyPressed === 'ArrowDown' && player.y + 1 < screen.height){
-                    player.y = player.y + 1;
-                    return;
-                }
-                
-                if(keyPressed === 'ArrowLeft' && player.x - 1 >= 0){
-                    player.x = player.x - 1;
-                    return;
+                function subscribe(observerFunction){ // forma de registrar um observer dentro de um subject.
+                    state.observers.push(observerFunction);
                 }
 
-                */
-                
-                // A forma abaixo está mais organizada
+                function notifyAll( command ){ // notifica os observers quando o for necessário
+                    console.log(`Notifying ${state.observers.length} observers`);
 
-                const command = {
-                    playerId: 'player1',
-                    keyPressed
+                    for(const observerFunction of state.observers){ // qualquer função pode ser passada aqui
+                        observerFunction(command); // pega a função e introduz o parametro command
+                    }
+
+
                 }
 
-                game.movePlayer(command); // de quem é esse código? R: camada do jogo
+                document.addEventListener('keydown', handleKeydown);
+
+                function handleKeydown(event) {
+                    const keyPressed = event.key;
+                    const command = {
+                        playerId: 'player1',
+                        keyPressed
+                    }
+                    notifyAll(command); // toda vez que uma tecla for pressionada os observers serão notificados
+
+                }
+
+                return {
+                    subscribe
+
+                }
 
             }
+
+            // Estagio 2 de desacoplamento.
+            // document.addEventListener('keydown', handleKeydown);
+            // function handleKeydown(event) {
+            //     console.log(event.key);
+            //     const keyPressed = event.key; // De quem é esse código? R: aparentemente essa linha é uma das responsabilidades da camada de input.
+            //    
+            //     // OBS.: ao fazer da forma abaixo estou misturando responsabilidades(NÃO FAÇA ISSO) das camadas
+            //     /* NÃO FAZER DESSA FORMA 
+            //  
+            //     const player = game.players[currentPlayerId];
+            //
+            //     // Abaixo, a camada de input está misturada com a de jogo, que é quem contem as regras de negócio dele.
+            //     // E aí nessas linhas fica muito difícil responder a pergunta: De quem é esse código? 
+            //     if(keyPressed === 'ArrowUp' && player.y - 1 >= 0){ // ao definir condições para que o jogador nao saia dos limites da tela estou criando uma regra de negócio para o jogo
+            //         player.y = player.y - 1;
+            //         return;
+            //     }
+            //    
+            //     if(keyPressed === 'ArrowRight' && player.x + 1 < screen.width){ // responsabilidades da camada de input e da camada do jogo, respectivamente
+            //         player.x = player.x + 1; // responsabilidade da camada do jogo.
+            //         return;
+            //     }
+            //    
+            //     if(keyPressed === 'ArrowDown' && player.y + 1 < screen.height){
+            //         player.y = player.y + 1;
+            //         return;
+            //     }
+            //    
+            //     if(keyPressed === 'ArrowLeft' && player.x - 1 >= 0){
+            //         player.x = player.x - 1;
+            //         return;
+            //     }
+            //
+            //     */
+            //    
+            //     // A forma abaixo está mais organizada
+            //     const command = {
+            //         playerId: 'player1',
+            //         keyPressed
+            //     }
+            //     game.movePlayer(command); // de quem é esse código? R: camada do jogo
+            // }
 
             renderScreen();
 
