@@ -38,6 +38,11 @@
                         'fruit1':{ x: 3, y: 1 },
                     
                     },
+                    bombs:{
+                        'bomb1':{ x: 0, y: 0 },
+
+                    }
+                
                 }
                 
                 function movePlayer(command){ // command é um objeto
@@ -78,8 +83,10 @@
                             
                             
                         },
-                        b(player) { //teste para o caso de eu apertar a tecla b
-                            console.log('pressing B');
+                        b(bombPlayer) { //teste para o caso de eu apertar a tecla b
+                            console.log('pressing B. Bomb has been planted');
+                            
+                        
                         }
 
                     }
@@ -87,6 +94,7 @@
 
 
                     const player = state.players[command.playerId];
+                    const bombPlayer = state.bombs[command.bombId];
                     const keyPressed = command.keyPressed;
                     
                     const moveFunction = acceptedMoves[keyPressed]; // ex: acceptedMoves[ArrowUp] === acceptedMoves.ArrowUp
@@ -94,11 +102,10 @@
                     if(moveFunction){ // se uma tecla valida for pressionada, mova o quadrado, caso contrario ignore a função de movimento
                         moveFunction(player); // === acceptedMoves.ArrowUp(player)
                         return 
-
                     }
                     
 
-                    /*
+                    /* As regras de negócio abaixo foram movidas para o objeto acceptedMoves
                     if( keyPressed === 'ArrowUp' && player.y - 1 >= 0){
                         player.y = player.y - 1;
                         return;
@@ -166,6 +173,7 @@
                     const keyPressed = event.key;
                     const command = {
                         playerId: 'player1',
+                        bombId: 'bomb1',
                         keyPressed
                     }
                     notifyAll(command); // toda vez que uma tecla for pressionada os observers serão notificados
