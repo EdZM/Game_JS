@@ -83,18 +83,20 @@
                             
                             
                         },
-                        b(bombPlayer) { //teste para o caso de eu apertar a tecla b
-                            console.log('pressing B. Bomb has been planted');
+                        // b(bombPlayer) { //teste para o caso de eu apertar a tecla b
+                        //     console.log(`${bombPlayer} had pressed B. Bomb has been planted`);
+                        //     bombPlayer.x = player.x;
+                        //     bombPlayer.y = player.y;
                             
-                        
-                        }
+                        //     return;
+                        // }
 
                     }
 
 
 
                     const player = state.players[command.playerId];
-                    const bombPlayer = state.bombs[command.bombId];
+                    //const bombPlayer = state.bombs[command.bombId];
                     const keyPressed = command.keyPressed;
                     
                     const moveFunction = acceptedMoves[keyPressed]; // ex: acceptedMoves[ArrowUp] === acceptedMoves.ArrowUp
@@ -250,7 +252,6 @@
                     context.fillRect(fruit.x, fruit.y, 1, 1);
                 }
 
-            
                 requestAnimationFrame(renderScreen); // forma mais otimizada para renderizar tudo 
                                                     // recurso do browser
                                                     // é chamada toda vez que for possível
