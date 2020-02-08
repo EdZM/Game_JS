@@ -42,7 +42,25 @@
                 
                 function movePlayer(command){ // command é um objeto
                     console.log(`Moving ${command.playerId} with ${command.keyPressed}`); // para usar JS dentro de strings use `` (Template Strings)
-                    
+
+                    const acceptedMoves = {
+                        ArrowUp(player){// recurso do JS para reaproveitar esse nome 'ArrowUp' e usá-lo como chave do objeto
+                                        // para acessar isso no console do navegador: cole todo a logica do accepted moves, e teste: const movesUp = acceptedMoves.ArrowUp e depois digite: movesUp()
+                            console.log('moving player up');
+                        },
+                        ArrowRight(player) {
+                            console.log('moving player right');
+                        },
+                        ArrowDown(player) {
+                            console.log('moving player down');
+                        },
+                        ArrowLeft(player) {
+                            console.log('moving player left');
+                        },
+                    }
+
+
+
                     const player = state.players[command.playerId];
                     const keyPressed = command.keyPressed;
 
