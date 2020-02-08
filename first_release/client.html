@@ -32,15 +32,17 @@
                     players: {
                         'player1':{ x: 1, y: 1 },
                         'player2':{ x: 9, y: 9 },
+                        
+                    
+                    
                     },
                 
                     fruits:{
                         'fruit1':{ x: 3, y: 1 },
                     
                     },
-                    bombs:{
-                        'bomb1':{ x: 0, y: 0 },
-
+                    bombs: {
+                           'bomb1':{x: 0, y: 0},
                     }
                 
                 }
@@ -83,22 +85,22 @@
                             
                             
                         },
-                        // b(bombPlayer) { //teste para o caso de eu apertar a tecla b
-                        //     console.log(`${bombPlayer} had pressed B. Bomb has been planted`);
-                        //     bombPlayer.x = player.x;
-                        //     bombPlayer.y = player.y;
+                        b(bombPlayer) { //teste para o caso de eu apertar a tecla b
+                            console.log(`${command.playerId} had pressed B. ${command.bombId} has been planted on position: ${player.x}, ${player.y}`);
+                            bombPlayer.x = player.x;
+                            bombPlayer.y = player.y;
                             
-                        //     return;
-                        // }
+                            return;
+                        }
 
                     }
 
-
-
                     const player = state.players[command.playerId];
-                    //const bombPlayer = state.bombs[command.bombId];
+                    const bombPlayer = state.bombs[command.bombId];
                     const keyPressed = command.keyPressed;
                     
+                    //console.log(`asdasd ${bombPlayer.x}`);
+
                     const moveFunction = acceptedMoves[keyPressed]; // ex: acceptedMoves[ArrowUp] === acceptedMoves.ArrowUp
                     
                     if(moveFunction){ // se uma tecla valida for pressionada, mova o quadrado, caso contrario ignore a função de movimento
@@ -243,7 +245,6 @@
                     context.fillStyle = 'black';
                     context.fillRect(player.x, player.y, 1, 1);
 
-
                 }
 
                 for(fruitId in game.state.fruits){
@@ -251,6 +252,21 @@
                     context.fillStyle = 'green';
                     context.fillRect(fruit.x, fruit.y, 1, 1);
                 }
+                
+                
+                // for(bombId in game.state.bombs){
+                //     const bomb = game.state.bombs[bombId];
+                //     context.fillStyle = 'red';
+                //     context.fillRect(bomb.x, bomb.y, 1, 1);
+
+                // }
+                
+
+                // for(bombId in game.state.bombs){
+                //     const bomb = game.state.bombs[bombId];
+                //     context.fillStyle = 'red';
+                //     context.fillRect(bomb.x, bomb.y, 1, 1);
+                // }
 
                 requestAnimationFrame(renderScreen); // forma mais otimizada para renderizar tudo 
                                                     // recurso do browser
