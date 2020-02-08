@@ -63,7 +63,7 @@
 
                     const player = state.players[command.playerId];
                     const keyPressed = command.keyPressed;
-                    const moveFunction = acceptedMoves(keyPressed);
+                    const moveFunction = acceptedMoves[keyPressed]; // ex: acceptedMoves[ArrowUp] ==> acceptedMoves.ArrowUp
                     moveFunction(player);
                     return 
 
