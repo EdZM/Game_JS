@@ -30,23 +30,41 @@
             function createGame(){
                 const state = { // não esqueça que state é um objeto
                     players: {
-                        'player1':{ x: 1, y: 1 },
-                        'player2':{ x: 9, y: 9 },
-                        
-                    
-                    
+                        // 'player1':{ x: 1, y: 1 }, players declarados estaticamente
+                        // 'player2':{ x: 9, y: 9 },
+                                            
                     },
                 
                     fruits:{
-                        'fruit1':{ x: 3, y: 1 },
+                        //'fruit1':{ x: 3, y: 1 },
                     
                     },
+                    
                     bombs: {
-                           'bomb1':{x: 0, y: 0},
+                        //'bomb1':{x: 0, y: 0},
                     }
                 
                 }
                 
+                function addPlayer(command) {
+                    const playerId = command.playerId;
+                    const playerX = command.playerX;
+                    const playerY = command.playerY;
+
+                    states.players[playerId] = {
+                        x: playerX, 
+                        y: playerY,
+                    }
+
+                }
+
+                function removePlayer(command) {
+                    const playerId = command.playerId;
+
+                    delete state.players[playerId];
+
+                }
+
                 function movePlayer(command){ // command é um objeto
                     console.log(`Moving ${command.playerId} with ${command.keyPressed}`); // para usar JS dentro de strings use `` (Template Strings)
 
@@ -96,7 +114,7 @@
                     }
 
                     const player = state.players[command.playerId];
-                    const bombPlayer = state.bombs[command.bombId];
+                    //const bombPlayer = state.bombs[command.bombId];
                     const keyPressed = command.keyPressed;
                     
                     //console.log(`asdasd ${bombPlayer.x}`);
@@ -134,8 +152,10 @@
                 }
                 
                 return {
+                    addPlayer,
+                    removePlayer,
                     movePlayer, // retorna uma instancia 
-                    state // retorna o objeto state, agora alterado pela função movePlayer
+                    state, // retorna o objeto state, agora alterado pela função movePlayer
                 }
             }
 
@@ -252,14 +272,6 @@
                     context.fillStyle = 'green';
                     context.fillRect(fruit.x, fruit.y, 1, 1);
                 }
-                
-                
-                // for(bombId in game.state.bombs){
-                //     const bomb = game.state.bombs[bombId];
-                //     context.fillStyle = 'red';
-                //     context.fillRect(bomb.x, bomb.y, 1, 1);
-
-                // }
                 
 
                 // for(bombId in game.state.bombs){
