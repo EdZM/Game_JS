@@ -45,13 +45,34 @@
                     }
                 
                 }
-                
+                function addFruit(command) {
+                    const fruitId = command.fruitId;
+                    const fruitX = command.fruitX;
+                    const fruitY = command.fruitY;
+
+                    state.fruits[fruitId] = {
+                        x: fruitX, 
+                        y: fruitY,
+                    }
+
+                }
+
+                function removeFruit(command) {
+                    const fruitId = command.fruitId;
+
+                    delete state.fruits[fruitId];
+
+                }
+
+
+
+
                 function addPlayer(command) {
                     const playerId = command.playerId;
                     const playerX = command.playerX;
                     const playerY = command.playerY;
 
-                    states.players[playerId] = {
+                    state.players[playerId] = {
                         x: playerX, 
                         y: playerY,
                     }
@@ -121,7 +142,7 @@
 
                     const moveFunction = acceptedMoves[keyPressed]; // ex: acceptedMoves[ArrowUp] === acceptedMoves.ArrowUp
                     
-                    if(moveFunction){ // se uma tecla valida for pressionada, mova o quadrado, caso contrario ignore a função de movimento
+                    if(player && moveFunction){ // se uma tecla valida for pressionada, mova o quadrado, caso contrario ignore a função de movimento
                         moveFunction(player); // === acceptedMoves.ArrowUp(player)
                         return 
                     }
@@ -152,6 +173,8 @@
                 }
                 
                 return {
+                    addFruit,
+                    removeFruit,
                     addPlayer,
                     removePlayer,
                     movePlayer, // retorna uma instancia 
@@ -197,6 +220,7 @@
                     const keyPressed = event.key;
                     const command = {
                         playerId: 'player1',
+                        
                         bombId: 'bomb1',
                         keyPressed
                     }
