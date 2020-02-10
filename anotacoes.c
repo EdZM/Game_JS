@@ -59,8 +59,9 @@
     ==> modularização do jogo e anotações sobre o backend e front end
     - JS + módulos === backend
 
-    - 
-
-
+    - ECMA script modules (ESM) 
+            ==> disponivel por padrao nas ultimas versoes dos navegadores e do node.js
+            - (sistema de módulos) forma de padronizar os sistemas de módulos dentro da linguagem
+            - pesquisar bundlers (existem alguns que podem ser usados até para reduzir o numero de requisicoes http)
 
 */
