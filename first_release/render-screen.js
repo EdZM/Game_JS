@@ -1,6 +1,7 @@
-export default function renderScreen(screen, game) {
-    const context = screen.getContext('2d')
-    context.fillStyle = 'white'
+export default function renderScreen(screen, game, requestAnimationFrame) {
+    
+    const context = screen.getContext('2d');
+    context.fillStyle = 'white';
     context.clearRect(0, 0, 10, 10);
 
     for(const playerId in game.state.players){
@@ -23,10 +24,13 @@ export default function renderScreen(screen, game) {
     //     context.fillRect(bomb.x, bomb.y, 1, 1);
     // }
 
-    requestAnimationFrame(renderScreen); // forma mais otimizada para renderizar tudo 
-                                        // recurso do browser
-                                        // é chamada toda vez que for possível
-                                        // quando a aba que contem o jogo renderizado está inativa, a frequencia de renderização do jogo cai bastante
+    requestAnimationFrame(() => { // criei uma função anonima para que pudesse passar os parametros de renderScreen e chamá-la recursivamente.
+        renderScreen(screen, game, requestAnimationFrame); 
+    }); 
+    // O uso de requestAnimatedFrame é uma forma mais otimizada para renderizar tudo 
+    // Recurso do browser
+    // É chamada toda vez que for possível
+    // Quando a aba que contem o jogo renderizado está inativa, a frequencia de renderização do jogo cai bastante
 
 
 }

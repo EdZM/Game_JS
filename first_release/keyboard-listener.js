@@ -1,3 +1,9 @@
+// Estagio 3 de desacoplamento (linhas abaixo) usando o design pattern observer
+
+// Caso se queira que o server side escute os mesmos eventos do client side pode-se, por exemplo (o código abaixo é só uma simulação):
+// const network = createNetwork(); componente/camada de network
+// keyboardListener.subscribe(network.update); // Estou imaginando que a função update é a que está exposta para escutar os mesmos comandos do jogo da mesma forma que movePlayer
+
 // funcao implementada seguindo o design pattern Factory(retorna uma variavel, objeto, função,)
 // A função abaixo deve funcionar como módulo tanto no navegador quanto no node.js(tudo isso pela adição do "export default")
 export default function createKeyboardListener(document) { // Essa função está ligada a camada de input, mas não na de jogo
@@ -41,7 +47,7 @@ export default function createKeyboardListener(document) { // Essa função est�
 
 }
 
-// Estagio 2 de desacoplamento.
+// Estagio 2 de desacoplamento. 
 // document.addEventListener('keydown', handleKeydown);
 // function handleKeydown(event) {
 //     console.log(event.key);

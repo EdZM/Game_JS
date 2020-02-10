@@ -24,25 +24,15 @@
             import createKeyboardListener from './keyboard-listener.js'; // padrao do ESM
                                                                          // É possivel ainda importar varias funções do módulo de uma só vez ao inves de uma função só. 
                                                                          // nesse caso a variavel que recebe o módulo será um objeto
+            import renderScreen from './render-screen.js';
             import createGame from './game.js';
             
-            const screen = document.getElementById('screen');
-            const context = screen.getContext('2d');
-            const currentPlayerId = 'player1';
-
-
-            
-            const game = createGame();
-            
-            
-
-            // Estagio 3 de desacoplamento (linhas abaixo) usando o design pattern observer
+            const game = createGame();            
             const keyboardListener = createKeyboardListener(document);
             keyboardListener.subscribe(game.movePlayer); // registra um observer que tem a função de mover o player
 
-            // Caso se queira que o server side escute os mesmos eventos do client side pode-se, por exemplo (o código abaixo é só uma simulação):
-            // const network = createNetwork(); componente/camada de network
-            // keyboardListener.subscribe(network.update); // Estou imaginando que a função update é a que está exposta para escutar os mesmos comandos do jogo da mesma forma que movePlayer
+            const screen = document.getElementById('screen');
+            renderScreen(screen, game, requestAnimationFrame);
 
             game.addPlayer({playerId: 'player1', playerX: 0, playerY:0})
             game.addPlayer({playerId: 'player2', playerX: 9, playerY:0})
@@ -51,39 +41,39 @@
 
             
 
-            renderScreen();
+            
 
-            function renderScreen() {
-                context.fillStyle = 'white';
-                context.clearRect(0, 0, 10, 10);
+            // function renderScreen() {
+            //     context.fillStyle = 'white';
+            //     context.clearRect(0, 0, 10, 10);
 
-                for(const playerId in game.state.players){
-                    const player = game.state.players[playerId];
-                    context.fillStyle = 'black';
-                    context.fillRect(player.x, player.y, 1, 1);
+            //     for(const playerId in game.state.players){
+            //         const player = game.state.players[playerId];
+            //         context.fillStyle = 'black';
+            //         context.fillRect(player.x, player.y, 1, 1);
 
-                }
+            //     }
 
-                for(const fruitId in game.state.fruits){
-                    const fruit = game.state.fruits[fruitId];
-                    context.fillStyle = 'green';
-                    context.fillRect(fruit.x, fruit.y, 1, 1);
-                }
+            //     for(const fruitId in game.state.fruits){
+            //         const fruit = game.state.fruits[fruitId];
+            //         context.fillStyle = 'green';
+            //         context.fillRect(fruit.x, fruit.y, 1, 1);
+            //     }
                 
 
-                // for(bombId in game.state.bombs){
-                //     const bomb = game.state.bombs[bombId];
-                //     context.fillStyle = 'red';
-                //     context.fillRect(bomb.x, bomb.y, 1, 1);
-                // }
+            //     // for(bombId in game.state.bombs){
+            //     //     const bomb = game.state.bombs[bombId];
+            //     //     context.fillStyle = 'red';
+            //     //     context.fillRect(bomb.x, bomb.y, 1, 1);
+            //     // }
 
-                requestAnimationFrame(renderScreen); // forma mais otimizada para renderizar tudo 
-                                                    // recurso do browser
-                                                    // é chamada toda vez que for possível
-                                                    // quando a aba que contem o jogo renderizado está inativa, a frequencia de renderização do jogo cai bastante
+            //     requestAnimationFrame(renderScreen); // forma mais otimizada para renderizar tudo 
+            //                                         // recurso do browser
+            //                                         // é chamada toda vez que for possível
+            //                                         // quando a aba que contem o jogo renderizado está inativa, a frequencia de renderização do jogo cai bastante
             
             
-            }
+            // }
 
             
 

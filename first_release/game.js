@@ -10,13 +10,10 @@ export default function createGame(){
     const state = { // não esqueça que state é um objeto
         players: {
             // 'player1':{ x: 1, y: 1 }, players declarados estaticamente
-            // 'player2':{ x: 9, y: 9 },
-                                
         },
     
         fruits:{
             //'fruit1':{ x: 3, y: 1 },
-        
         },
         
         bombs: {
@@ -110,7 +107,6 @@ export default function createGame(){
                 console.log(`${command.playerId} had pressed B. ${command.bombId} has been planted on position: ${player.x}, ${player.y}`);
                 bombPlayer.x = player.x;
                 bombPlayer.y = player.y;
-                
                 // return;
             }
 
