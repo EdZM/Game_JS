@@ -206,8 +206,10 @@
 
             const game = createGame();
             
+            
+
             // Estagio 3 de desacoplamento (linhas abaixo) usando o design pattern observer
-            const keyboardListener = createKeyboardListener();
+            const keyboardListener = createKeyboardListener(document);
             keyboardListener.subscribe(game.movePlayer); // registra um observer que tem a função de mover o player
 
             // Caso se queira que o server side escute os mesmos eventos do client side pode-se, por exemplo (o código abaixo é só uma simulação):
@@ -217,6 +219,9 @@
             game.addPlayer({playerId: 'player1', playerX: 0, playerY:0})
             game.addPlayer({playerId: 'player2', playerX: 9, playerY:0})
             game.addFruit({fruitId: 'fruit1', fruitX: 3, fruitY:3})
+            game.addFruit({fruitId: 'fruit2', fruitX: 6, fruitY:3})
+
+            
 
             renderScreen();
 
@@ -224,14 +229,14 @@
                 context.fillStyle = 'white';
                 context.clearRect(0, 0, 10, 10);
 
-                for(playerId in game.state.players){
+                for(const playerId in game.state.players){
                     const player = game.state.players[playerId];
                     context.fillStyle = 'black';
                     context.fillRect(player.x, player.y, 1, 1);
 
                 }
 
-                for(fruitId in game.state.fruits){
+                for(const fruitId in game.state.fruits){
                     const fruit = game.state.fruits[fruitId];
                     context.fillStyle = 'green';
                     context.fillRect(fruit.x, fruit.y, 1, 1);

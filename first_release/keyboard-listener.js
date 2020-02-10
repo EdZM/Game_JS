@@ -1,12 +1,13 @@
 // funcao implementada seguindo o design pattern Factory(retorna uma variavel, objeto, função,)
 // A função abaixo deve funcionar como módulo tanto no navegador quanto no node.js(tudo isso pela adição do "export default")
-export default function createKeyboardListener() { // Essa função está ligada a camada de input, mas não na de jogo
+export default function createKeyboardListener(document) { // Essa função está ligada a camada de input, mas não na de jogo
     const state = {
         observers: [],
 
     }
     
     function subscribe(observerFunction){ // forma de registrar um observer dentro de um subject.
+        console.log(`Subscribed`);
         state.observers.push(observerFunction);
     }
 
@@ -25,8 +26,7 @@ export default function createKeyboardListener() { // Essa função está ligada
     function handleKeydown(event) {
         const keyPressed = event.key;
         const command = {
-            playerId: 'player1',
-            
+            playerId: 'player1', 
             bombId: 'bomb1',
             keyPressed
         }
