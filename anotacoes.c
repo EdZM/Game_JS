@@ -1,6 +1,8 @@
 /*
     Jogo multiplayer feito em Java Script 
 
+    - Pense no jogo de forma abstrata(com propriedades) e não de forma aplicada a uma tela ou canvas!
+
     - A ideia do jogo é simples:
 
     - A principio temos 4 camadas:
@@ -57,12 +59,12 @@
     - OBS.: Na checagem de colisão, pode-se fazer uma otimização usando QuadTree. Nela a checagem ocorre de colisão de um jogador com frutas que estiverem no mesmo quadrante(região) que ele
 
     ==> modularização do jogo e anotações sobre o backend e front end
-    - JS + módulos === backend
+    - JS + módulos === backend (não tem tela ou representação visual, mas sim estruturas, dados e informações ABSTRATAS, por isso deve-se pensar de forma abstrata)
 
     - ECMA script modules (ESM) 
             ==> disponivel por padrao nas ultimas versoes dos navegadores e do node.js
             - (sistema de módulos) forma de padronizar os sistemas de módulos dentro da linguagem
             - pesquisar bundlers (existem alguns que podem ser usados até para reduzir o numero de requisicoes http)
 
-
+    *********CUIDADO com variáveis globais na hora de modularizar o código
 */
