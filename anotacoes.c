@@ -56,4 +56,11 @@
     
     - OBS.: Na checagem de colisão, pode-se fazer uma otimização usando QuadTree. Nela a checagem ocorre de colisão de um jogador com frutas que estiverem no mesmo quadrante(região) que ele
 
+    ==> modularização do jogo e anotações sobre o backend e front end
+    - JS + módulos === backend
+
+    - 
+
+
+
 */
