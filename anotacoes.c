@@ -66,5 +66,5 @@
             - (sistema de módulos) forma de padronizar os sistemas de módulos dentro da linguagem
             - pesquisar bundlers (existem alguns que podem ser usados até para reduzir o numero de requisicoes http)
 
-    *********CUIDADO com variáveis globais na hora de modularizar o código
+    *********CUIDADO com variáveis globais na hora de modularizar o código.
 */
