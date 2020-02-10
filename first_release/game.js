@@ -4,7 +4,7 @@
 
 export default function createGame(){
     
-    console.log(screen); // sem qualquer alteração relacionada a variavel global screen, deverá aparecer um log informando que a tela disponivel é do tamanho do monitor do pc
+    //console.log(screen); // sem qualquer alteração relacionada a variavel global screen, deverá aparecer um log informando que a tela disponivel é do tamanho do monitor do pc
                          // ou melhor dizendo, um log mostrando o conteudo de window.screen. Portanto, CUIDADO com variaveis globais   
     
     const state = { // não esqueça que state é um objeto

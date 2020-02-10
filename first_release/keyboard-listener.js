@@ -7,7 +7,7 @@ export default function createKeyboardListener(document) { // Essa função est�
     }
     
     function subscribe(observerFunction){ // forma de registrar um observer dentro de um subject.
-        console.log(`Subscribed`);
+        //console.log(`Subscribed`);
         state.observers.push(observerFunction);
     }
 
