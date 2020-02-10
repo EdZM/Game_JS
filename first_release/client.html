@@ -65,8 +65,6 @@
                 }
 
 
-
-
                 function addPlayer(command) {
                     const playerId = command.playerId;
                     const playerX = command.playerX;
@@ -133,18 +131,17 @@
                         }
 
                     }
-
-                    const player = state.players[command.playerId];
+                    
                     //const bombPlayer = state.bombs[command.bombId];
+                    const player = state.players[command.playerId];
                     const keyPressed = command.keyPressed;
                     
-                    //console.log(`asdasd ${bombPlayer.x}`);
-
                     const moveFunction = acceptedMoves[keyPressed]; // ex: acceptedMoves[ArrowUp] === acceptedMoves.ArrowUp
                     
                     if(player && moveFunction){ // se uma tecla valida for pressionada, mova o quadrado, caso contrario ignore a função de movimento
                         moveFunction(player); // === acceptedMoves.ArrowUp(player)
-                        return 
+                        checkForFruitCollision();
+                        //return 
                     }
                     
 
@@ -170,6 +167,29 @@
                     }
                     */
                     
+                    function checkForFruitCollision() {
+                        for(const playerId in state.players){
+                            const player = state.players[playerId];
+
+                            for(const fruitId in state.fruits){
+                                const fruit = state.fruits[fruitId];
+                                
+                                console.log(`checking ${playerId} and ${fruitId}`);
+                                if(player.x === fruit.x && player.y === fruit.y){
+                                    console.log(`COLLISION between ${playerId} and ${fruitId}`);
+                                }
+                            
+                            
+                            }
+
+
+                        }
+
+
+                    }
+
+
+
                 }
                 
                 return {
@@ -191,6 +211,9 @@
             // Caso se queira que o server side escute os mesmos eventos do client side pode-se, por exemplo (o código abaixo é só uma simulação):
             // const network = createNetwork(); componente/camada de network
             // keyboardListener.subscribe(network.update); // Estou imaginando que a função update é a que está exposta para escutar os mesmos comandos do jogo da mesma forma que movePlayer
+
+            game.addPlayer({playerId: 'player1', playerX: 0, playerY:0})
+            game.addFruit({fruitId: 'fruit1', playerX: 3, playerY:3})
 
 
             // funcao implementada seguindo o design pattern Factory(retorna uma variavel, objeto, função,)
