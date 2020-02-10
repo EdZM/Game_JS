@@ -85,39 +85,39 @@
                 }
 
                 function movePlayer(command){ // command é um objeto
-                    console.log(`Moving ${command.playerId} with ${command.keyPressed}`); // para usar JS dentro de strings use `` (Template Strings)
+                    //console.log(`Moving ${command.playerId} with ${command.keyPressed}`); // para usar JS dentro de strings use `` (Template Strings)
 
                     const acceptedMoves = {
                         ArrowUp(player){// recurso do JS para reaproveitar esse nome 'ArrowUp' e usá-lo como chave do objeto
                                         // para acessar isso no console do navegador: cole todo a logica do accepted moves, e teste: const movesUp = acceptedMoves.ArrowUp e depois digite: movesUp()                            
                             if(player.y - 1 >= 0) {
-                                console.log('moving player up');
+                                //console.log('moving player up');
                                 player.y = player.y - 1;
-                                return;
+                                // return;
                             }
                         
                         },
                         ArrowRight(player) {
                             if(player.x + 1 < screen.width){
-                                console.log('moving player right');
+                                //console.log('moving player right');
                                 player.x = player.x + 1; 
-                                return;
+                                // return;
                             }
                         
                         },
                         ArrowDown(player) {
                             if(player.y + 1 < screen.height){
-                                console.log('moving player down');
+                                //console.log('moving player down');
                                 player.y = player.y + 1;
-                                return;
+                                // return;
                             }
                             
                         },
                         ArrowLeft(player) {
                             if(player.x - 1 >= 0){
-                                console.log('moving player left');
+                                //console.log('moving player left');
                                 player.x = player.x - 1;
-                                return;
+                                // return;
                             }
                             
                             
@@ -127,20 +127,25 @@
                             bombPlayer.x = player.x;
                             bombPlayer.y = player.y;
                             
-                            return;
+                            // return;
                         }
 
                     }
                     
                     //const bombPlayer = state.bombs[command.bombId];
-                    const player = state.players[command.playerId];
+                    const playerId = command.playerId;
+                    const player = state.players[playerId];
                     const keyPressed = command.keyPressed;
                     
                     const moveFunction = acceptedMoves[keyPressed]; // ex: acceptedMoves[ArrowUp] === acceptedMoves.ArrowUp
                     
                     if(player && moveFunction){ // se uma tecla valida for pressionada, mova o quadrado, caso contrario ignore a função de movimento
                         moveFunction(player); // === acceptedMoves.ArrowUp(player)
-                        checkForFruitCollision();
+                        checkForFruitCollision(playerId); // irá checar se um único jogador movido recentemente pela função acima colidiu com as demais frutas.
+
+                        //checkForFruitCollision(); // Caso o número de jogadores seja muito grande, 
+                                                    // o número de verificações também será, já que a cada movimento de um único jogador, 
+                                                    // serão feitas verificações para todos os demais e isso é muito custoso.
                         //return 
                     }
                     
@@ -167,32 +172,26 @@
                     }
                     */
                     
-                    function checkForFruitCollision() {
-                        for(const playerId in state.players){
-                            const player = state.players[playerId];
+                    function checkForFruitCollision(playerId) {
+                        
+                        const player = state.players[playerId];
 
-                            for(const fruitId in state.fruits){
-                                const fruit = state.fruits[fruitId];
-                                
-                                console.log(`checking ${playerId} and ${fruitId}`);
-                                if(player.x === fruit.x && player.y === fruit.y){
-                                    console.log(`COLLISION between ${playerId} and ${fruitId}`);
-                                }
+                        for(const fruitId in state.fruits){
+                            const fruit = state.fruits[fruitId];
                             
-                            
+                            console.log(`checking ${playerId} and ${fruitId}`);
+                            if(player.x === fruit.x && player.y === fruit.y){
+                                console.log(`COLLISION between ${playerId} and ${fruitId}`);
+                                removeFruit({fruitId: fruitId});
                             }
-
-
+                                         
                         }
-
-
                     }
-
-
 
                 }
                 
                 return {
+                    // retorno dos métodos/objetos públicos da camada do jogo
                     addFruit,
                     removeFruit,
                     addPlayer,
@@ -213,6 +212,7 @@
             // keyboardListener.subscribe(network.update); // Estou imaginando que a função update é a que está exposta para escutar os mesmos comandos do jogo da mesma forma que movePlayer
 
             game.addPlayer({playerId: 'player1', playerX: 0, playerY:0})
+            game.addPlayer({playerId: 'player2', playerX: 9, playerY:0})
             game.addFruit({fruitId: 'fruit1', fruitX: 3, fruitY:3})
 
 
@@ -228,7 +228,7 @@
                 }
 
                 function notifyAll( command ){ // notifica os observers quando o for necessário
-                    console.log(`Notifying ${state.observers.length} observers`);
+                    //console.log(`Notifying ${state.observers.length} observers`);
 
                     for(const observerFunction of state.observers){ // qualquer função pode ser passada aqui
                         observerFunction(command); // pega a função e introduz o parametro command
