@@ -1,6 +1,8 @@
 /*
     Jogo multiplayer feito em Java Script 
 
+    - A ideia do jogo é simples:
+
     - A principio temos 4 camadas:
         - Apresentação: apresenta resultado final da aplicação
         - Lógica e Dados(JOGO): guarda as informações/estado(Dados) e as regras do jogo(Lógica) ==> State Machine + logica
@@ -52,6 +54,6 @@
         - Caso eu não saiba a resposta a essa pergunta, então não tenho total compreensão da modelagem do meu código.
 
     
-
+    - OBS.: Na checagem de colisão, pode-se fazer uma otimização usando QuadTree. Nela a checagem ocorre de colisão de um jogador com frutas que estiverem no mesmo quadrante(região) que ele
 
 */
